@@ -59,3 +59,14 @@ func (c *Client) GetLatestBlock() (*Block, error) {
 	}
 	return rsp, e
 }
+
+func (c *Client) GetBlocksByPool(pool string) (*BlockHeight, error) {
+	rsp := &BlockHeight{}
+	var path = "/blocks/"+pool;
+	e := c.loadResponse(path, rsp, true)
+
+	if e != nil {
+		fmt.Print(e)
+	}
+	return rsp, e
+}

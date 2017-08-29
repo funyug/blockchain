@@ -55,3 +55,19 @@ func TestGetLatestBlock(t *testing.T) {
 		fmt.Println(v)
 	}
 }
+
+func TestGetBlocksByPool(t *testing.T){
+	fmt.Println("===== TESTING BLOCKS =====")
+
+	c, e := New()
+	resp, e := c.GetBlocksByPool("AntPool")
+	if e != nil {
+		fmt.Print(e)
+	}
+
+	for i := range resp.Blocks {
+		fmt.Println(resp.Blocks[i].Hash)
+		fmt.Println(resp.Blocks[i].Time)
+	}
+}
+
