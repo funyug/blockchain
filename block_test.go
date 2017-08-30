@@ -3,6 +3,7 @@ package blockchain
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func TestGetBlock(t *testing.T) {
@@ -71,3 +72,18 @@ func TestGetBlocksByPool(t *testing.T){
 	}
 }
 
+func TestGetBlocksByTime(t *testing.T){
+	fmt.Println("===== TESTING BLOCKS =====")
+
+	c, e := New()
+	timestamp := time.Now().AddDate(0,0,-1).UnixNano() / 1000000
+	resp, e := c.GetBlocksByTime(timestamp)
+	if e != nil {
+		fmt.Print(e)
+	}
+
+	for i := range resp.Blocks {
+		fmt.Println(resp.Blocks[i].Hash)
+		fmt.Println(resp.Blocks[i].Time)
+	}
+}

@@ -2,6 +2,7 @@ package blockchain
 
 import (
 	"fmt"
+	"strconv"
 )
 
 type Block struct {
@@ -62,7 +63,7 @@ func (c *Client) GetLatestBlock() (*Block, error) {
 
 func (c *Client) GetBlocksByPool(pool string) (*BlockHeight, error) {
 	rsp := &BlockHeight{}
-	var path = "/blocks/"+pool;
+	var path = "/blocks/"+pool
 	e := c.loadResponse(path, rsp, true)
 
 	if e != nil {
@@ -70,3 +71,15 @@ func (c *Client) GetBlocksByPool(pool string) (*BlockHeight, error) {
 	}
 	return rsp, e
 }
+
+func (c *Client) GetBlocksByTime(timestamp int64) (*BlockHeight, error) {
+	rsp := &BlockHeight{}
+	var path = "/blocks/"+strconv.FormatInt(timestamp,10)
+	e := c.loadResponse(path, rsp, true)
+
+	if e != nil {
+		fmt.Print(e)
+	}
+	return rsp, e
+}
+
